@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
-      initialRoute: 'home',
+      initialRoute: 'reto',
       routes: appRoutes,
       theme: tema,
     );

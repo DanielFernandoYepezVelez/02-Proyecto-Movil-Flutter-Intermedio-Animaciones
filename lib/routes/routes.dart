@@ -5,4 +5,5 @@ import 'package:animations_app/screens/screens.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
   'home': (_) => AnimationsScreen(),
+  'reto': (_) => CuadradoAnimadoScreen(),
 };
