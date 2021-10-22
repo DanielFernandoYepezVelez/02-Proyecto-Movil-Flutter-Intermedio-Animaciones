@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class CircularProgressScreen extends StatefulWidget {
@@ -8,10 +9,64 @@ class CircularProgressScreen extends StatefulWidget {
   _CircularProgressScreenState createState() => _CircularProgressScreenState();
 }
 
-class _CircularProgressScreenState extends State<CircularProgressScreen> {
+class _CircularProgressScreenState extends State<CircularProgressScreen>
+    with SingleTickerProviderStateMixin {
+  double? porcentaje = 0.0;
+  double? nuevoPorcentaje = 0.0;
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    this.animationController = new AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 800),
+    );
+
+    this.animationController.addListener(() {
+      /* El Value De La Animación Se Puede Ver Como Porcentajes De La Misma
+      Que Inicia Desde 0 A 1 */
+      print('Valor Del animationController: ${this.animationController.value}');
+
+      setState(() {
+        this.porcentaje = lerpDouble(
+          this.porcentaje,
+          this.nuevoPorcentaje,
+          this.animationController.value,
+        );
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    this.animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        backgroundColor: Colors.pink,
+        onPressed: () {
+          this.porcentaje = this.nuevoPorcentaje;
+          this.nuevoPorcentaje = this.nuevoPorcentaje! + 10;
+
+          if (this.nuevoPorcentaje! > 100) {
+            this.nuevoPorcentaje = 0;
+            this.porcentaje = 0;
+          }
+
+          /* Desde Donde Quiero, Que Siempre Inicie Esta Animación,
+          Recordemos Que Siempre Vamos Desde 0.0 A 1.0 */
+          this.animationController.forward(from: 0.0);
+
+          setState(() {});
+        },
+      ),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(5),
@@ -19,7 +74,7 @@ class _CircularProgressScreenState extends State<CircularProgressScreen> {
           height: 300,
           // color: Colors.red,
           child: CustomPaint(
-            painter: _MiRadialProgress(40),
+            painter: _MiRadialProgress(this.porcentaje),
           ),
         ),
       ),
