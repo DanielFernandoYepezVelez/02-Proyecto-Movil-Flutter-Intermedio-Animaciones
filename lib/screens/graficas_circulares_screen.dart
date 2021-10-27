@@ -29,12 +29,51 @@ class _GraficasCircularesScreenState extends State<GraficasCircularesScreen> {
           });
         },
       ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 300,
-          child: RadialProgress(porcentaje: this.porcentaje),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, color: Colors.green),
+              CustomRadialProgress(porcentaje: porcentaje, color: Colors.purple)
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, color: Colors.pink),
+              CustomRadialProgress(porcentaje: porcentaje, color: Colors.yellow)
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+  final Color color;
+
+  const CustomRadialProgress({
+    Key? key,
+    required this.porcentaje,
+    required this.color,
+  }) : super(key: key);
+
+  final double porcentaje;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 180,
+      height: 180,
+      child: RadialProgress(
+        porcentaje: this.porcentaje,
+        colorPrimario: this.color,
+        colorSecundario: Colors.grey,
+        grosorPrimario: 10,
+        grosorSecundario: 4,
       ),
     );
   }
