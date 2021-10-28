@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
-      initialRoute: 'graficas',
+      initialRoute: 'slide',
       routes: appRoutes,
       theme: tema,
     );

@@ -8,4 +8,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'graficas': (_) => GraficasCircularesScreen(),
   'home': (_) => AnimationsScreen(),
   'reto': (_) => CuadradoAnimadoScreen(),
+  'slide': (_) => SlideShowScreen(),
 };
