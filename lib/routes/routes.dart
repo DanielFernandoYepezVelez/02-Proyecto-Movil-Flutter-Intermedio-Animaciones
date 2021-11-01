@@ -9,5 +9,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'home': (_) => AnimationsScreen(),
   'reto': (_) => CuadradoAnimadoScreen(),
   'slide': (_) => SlideShowScreen(),
-  'slideRefactor': (_) => SlideShowRefactorScreen()
+  'slideRefactor': (_) => SlideShowRefactorScreen(),
+  'pinterest': (_) => PinterestScreen()
 };

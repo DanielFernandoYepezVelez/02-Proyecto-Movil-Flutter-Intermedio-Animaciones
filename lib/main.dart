@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
-      initialRoute: 'slideRefactor',
+      initialRoute: 'pinterest',
       routes: appRoutes,
       theme: tema,
     );
