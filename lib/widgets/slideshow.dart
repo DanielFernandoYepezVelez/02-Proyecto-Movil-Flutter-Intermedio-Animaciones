@@ -6,21 +6,53 @@ import 'package:provider/provider.dart';
 import 'package:animations_app/providers/providers.dart';
 
 class SlideShow extends StatelessWidget {
+  final bool puntosArriba;
   final List<Widget> slides;
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double bulletPrimario;
+  final double bulletSecundario;
 
-  const SlideShow({required this.slides});
+  const SlideShow({
+    required this.slides,
+    this.puntosArriba = false,
+    this.colorPrimario = Colors.blue,
+    this.colorSecundario = Colors.grey,
+    this.bulletPrimario = 12,
+    this.bulletSecundario = 12,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final sliderModel = Provider.of<SliderProvider>(context, listen: false);
+
+    sliderModel.bulletPrimario = this.bulletPrimario;
+    sliderModel.bulletSecundario = this.bulletSecundario;
+
     return Container(
-      child: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: _Slides(this.slides),
-            ),
-            _Dots(),
-          ],
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              /* Condicionales Dentro De Los Arreglos (IMPORTANTE) */
+              if (this.puntosArriba)
+                _Dots(
+                  totalSlides: this.slides.length,
+                  colorPrimario: this.colorPrimario,
+                  colorSecundario: this.colorSecundario,
+                ),
+              Expanded(
+                child: _Slides(this.slides),
+              ),
+              /* Condicionales Dentro De Los Arreglos (IMPORTANTE) */
+              if (!this.puntosArriba)
+                _Dots(
+                  totalSlides: this.slides.length,
+                  colorPrimario: this.colorPrimario,
+                  colorSecundario: this.colorSecundario,
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -42,12 +74,12 @@ class _SlidesState extends State<_Slides> {
   @override
   void initState() {
     super.initState();
+
     this.pageViewController.addListener(() {
       // print('Página Actual: ${this.pageViewController.page}');
 
-      final sliderProvider =
-          Provider.of<SliderProvider>(context, listen: false);
-      sliderProvider.currentPage = this.pageViewController.page!;
+      final sliderModel = Provider.of<SliderProvider>(context, listen: false);
+      sliderModel.currentPage = this.pageViewController.page!;
     });
   }
 
@@ -91,7 +123,16 @@ class _Slide extends StatelessWidget {
 }
 
 class _Dots extends StatelessWidget {
-  const _Dots({Key? key}) : super(key: key);
+  final int totalSlides;
+  final Color colorPrimario;
+  final Color colorSecundario;
+
+  const _Dots({
+    Key? key,
+    required this.totalSlides,
+    required this.colorPrimario,
+    required this.colorSecundario,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +141,19 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: List.generate(
+          this.totalSlides,
+          (i) => _Dot(
+            index: i,
+            colorPrimario: this.colorPrimario,
+            colorSecundario: this.colorSecundario,
+          ),
+        ),
+        /* children: [
           _Dot(index: 0),
           _Dot(index: 1),
           _Dot(index: 2),
-        ],
+        ], */
       ),
     );
   }
@@ -112,23 +161,38 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
+  final Color colorPrimario;
+  final Color colorSecundario;
 
-  const _Dot({Key? key, required this.index}) : super(key: key);
+  const _Dot({
+    Key? key,
+    required this.index,
+    required this.colorPrimario,
+    required this.colorSecundario,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final pageViewIndex = Provider.of<SliderProvider>(context);
+    final sliderModel = Provider.of<SliderProvider>(context);
+    Color color;
+    double tamano;
+
+    if (sliderModel.currentPage >= (this.index - 0.5) &&
+        sliderModel.currentPage < (this.index + 0.5)) {
+      tamano = sliderModel.bulletPrimario;
+      color = this.colorPrimario;
+    } else {
+      tamano = sliderModel.bulletSecundario;
+      color = this.colorSecundario;
+    }
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: 12,
-      height: 12,
+      width: tamano,
+      height: tamano,
       margin: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: (pageViewIndex.currentPage >= (this.index - 0.5) &&
-                pageViewIndex.currentPage < (this.index + 0.5))
-            ? Colors.blue
-            : Colors.grey,
+        color: color,
         shape: BoxShape.circle,
       ),
     );
