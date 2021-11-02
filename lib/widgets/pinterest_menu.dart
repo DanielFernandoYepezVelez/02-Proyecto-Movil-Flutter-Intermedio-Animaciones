@@ -11,7 +11,17 @@ class PinterestButton {
   const PinterestButton({required this.onPress, required this.icon});
 }
 
+// ignore: must_be_immutable
 class PinterestMenu extends StatelessWidget {
+  final bool mostrar;
+  Color activeColor = Colors.white;
+  Color inactiveColor = Colors.grey;
+  Color backgroundColor = Colors.black;
+  final List<PinterestButton> items;
+
+  /* Iconos De Forma Estatica, La Refactorización
+  Hace Que Mi Menu Sea Dinamico Y Que Mande Los
+  Items Como Argumentos. 
   final List<PinterestButton> items = [
     PinterestButton(
       icon: Icons.pie_chart,
@@ -38,19 +48,40 @@ class PinterestMenu extends StatelessWidget {
       },
     ),
   ];
-
-  PinterestMenu({Key? key}) : super(key: key);
+ */
+  PinterestMenu({
+    Key? key,
+    this.mostrar = true,
+    this.activeColor = Colors.white,
+    this.inactiveColor = Colors.grey,
+    this.backgroundColor = Colors.black,
+    required this.items,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => new MenuModel(),
-      child: Center(
-        child: Container(
-          width: 250,
-          height: 60,
-          decoration: menuDecorationBackground(),
-          child: _MenuItems(menuItems: this.items),
+      child: AnimatedOpacity(
+        opacity: (this.mostrar) ? 1 : 0,
+        duration: Duration(milliseconds: 250),
+        child: Builder(
+          builder: (BuildContext context) {
+            /* Primero Se Construye El Provider Y Luego El Bilder, Por Que El Builder Trabaja Bajo El Contexto,
+            Es Decir, Construye Lo Que Necesita Primero, Para Poder Trabajar Sin Ningún Problema Después. */
+            Provider.of<MenuModel>(context).setActiveColor = this.activeColor;
+            Provider.of<MenuModel>(context).setInactiveColor =
+                this.inactiveColor;
+            Provider.of<MenuModel>(context).setBackgroundColor =
+                this.backgroundColor;
+
+            return Container(
+              width: 250,
+              height: 60,
+              decoration: menuDecorationBackground(),
+              child: _MenuItems(menuItems: this.items),
+            );
+          },
         ),
       ),
     );
@@ -108,10 +139,10 @@ class _PinterestMenuButton extends StatelessWidget {
     final buttonSeleccionado = Provider.of<MenuModel>(context);
 
     if (buttonSeleccionado.itemSeleccionado == this.index) {
-      this.color = Colors.white;
+      this.color = buttonSeleccionado.getActiveColor;
       this.tamano = 35;
     } else {
-      this.color = Colors.grey;
+      this.color = buttonSeleccionado.getInactiveColor;
       this.tamano = 25;
     }
 
