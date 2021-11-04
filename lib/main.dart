@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
-      initialRoute: 'pinterest',
+      initialRoute: 'emergency',
       routes: appRoutes,
       theme: tema,
     );
