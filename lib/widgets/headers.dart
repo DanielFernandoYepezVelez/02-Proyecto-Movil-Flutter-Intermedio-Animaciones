@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Headers extends StatelessWidget {
-  const Headers({Key? key}) : super(key: key);
+  final IconData icon;
+  final String titulo;
+  final String subtitulo;
+  final Color color1;
+  final Color color2;
+
+  const Headers({
+    Key? key,
+    required this.icon,
+    required this.titulo,
+    required this.subtitulo,
+    this.color1 = Colors.grey,
+    this.color2 = Colors.blueGrey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +23,12 @@ class Headers extends StatelessWidget {
 
     return Stack(
       children: [
-        _HeaderBackground(),
+        _HeaderBackground(color1: this.color1, color2: this.color2),
         Positioned(
           top: -50,
           left: -70,
           child: FaIcon(
-            FontAwesomeIcons.plus,
+            this.icon,
             size: 250,
             color: Colors.white.withOpacity(0.2),
           ),
@@ -24,12 +37,12 @@ class Headers extends StatelessWidget {
           children: [
             SizedBox(height: 80, width: double.infinity),
             Text(
-              'Haz Solicitado',
+              this.subtitulo,
               style: TextStyle(fontSize: 20, color: colorBlanco),
             ),
             SizedBox(height: 20),
             Text(
-              'Asistencia Médica',
+              this.titulo,
               style: TextStyle(
                 fontSize: 25,
                 color: colorBlanco,
@@ -37,7 +50,7 @@ class Headers extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white),
+            FaIcon(this.icon, size: 80, color: Colors.white),
           ],
         ),
       ],
@@ -46,7 +59,14 @@ class Headers extends StatelessWidget {
 }
 
 class _HeaderBackground extends StatelessWidget {
-  const _HeaderBackground({Key? key}) : super(key: key);
+  final Color color1;
+  final Color color2;
+
+  const _HeaderBackground({
+    Key? key,
+    required this.color1,
+    required this.color2,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +79,7 @@ class _HeaderBackground extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xff526BF6),
-            Color(0xff67ACF2),
-          ],
+          colors: [this.color1, this.color2],
         ),
       ),
     );
