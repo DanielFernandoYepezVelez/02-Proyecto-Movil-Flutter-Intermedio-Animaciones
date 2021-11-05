@@ -11,7 +11,15 @@ class EmergencyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: BotonPrincipal(),
+        child: BotonPrincipal(
+          icon: FontAwesomeIcons.carCrash,
+          texto: 'Motor Accident',
+          color1: Color(0xff6989F5),
+          color2: Color(0xff906EF5),
+          onPress: () {
+            print('Click En El Boton Principal');
+          },
+        ),
       ),
     );
   }
