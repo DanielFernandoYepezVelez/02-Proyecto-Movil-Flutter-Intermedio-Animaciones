@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
-      initialRoute: 'emergency',
+      initialRoute: 'sliverList',
       routes: appRoutes,
       theme: tema,
     );
