@@ -9,7 +9,12 @@ class SliverListScreen extends StatelessWidget {
       alignment: Alignment.centerLeft,
       // child: _Titulo(),
       // child: _ListaTareas(),
-      child: _MainScroll(),
+      child: Stack(
+        children: [
+          _MainScroll(),
+          Positioned(bottom: -10, right: 0, child: _BotonNewList()),
+        ],
+      ),
     );
   }
 }
@@ -33,18 +38,98 @@ class _MainScroll extends StatelessWidget {
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
-        SliverAppBar(
+        /* SliverAppBar(
           elevation: 0,
           floating: true,
           centerTitle: true,
           title: Text('Hola Mundo'),
           backgroundColor: Colors.red,
+        ), */
+        SliverPersistentHeader(
+          floating: true,
+          delegate: _SliverCustomHeaderDelegate(
+            minHeight: 170,
+            maxHeight: 200,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              color: Colors.black,
+              child: _Titulo(),
+            ),
+          ),
         ),
         SliverList(
-          delegate: SliverChildListDelegate(this.items),
+          delegate: SliverChildListDelegate(
+            [
+              ...this.items,
+              SizedBox(height: 100),
+            ],
+          ),
         ),
       ],
     );
+  }
+}
+
+class _BotonNewList extends StatelessWidget {
+  const _BotonNewList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return ButtonTheme(
+      height: 100,
+      minWidth: size.width * 0.9,
+      child: MaterialButton(
+        color: Color(0xffED6762),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
+        ),
+        onPressed: () {},
+        child: Text(
+          'CREATE NEW LIST',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 3,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double minHeight;
+  final double maxHeight;
+
+  _SliverCustomHeaderDelegate({
+    required this.child,
+    required this.minHeight,
+    required this.maxHeight,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: this.child);
+  }
+
+  @override
+  double get maxExtent =>
+      (this.minHeight > this.maxHeight) ? this.minHeight : this.maxHeight;
+
+  @override
+  double get minExtent =>
+      (this.maxHeight > this.minHeight) ? this.maxHeight : this.minHeight;
+
+  @override
+  bool shouldRebuild(_SliverCustomHeaderDelegate oldDelegate) {
+    return this.maxHeight != oldDelegate.maxHeight ||
+        this.minHeight != oldDelegate.minHeight ||
+        this.child != oldDelegate.child;
   }
 }
 
