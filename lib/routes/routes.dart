@@ -12,5 +12,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'slideRefactor': (_) => SlideShowRefactorScreen(),
   'pinterest': (_) => PinterestScreen(),
   'emergency': (_) => EmergencyScreen(),
-  'sliverList': (_) => SliverListScreen()
+  'sliverList': (_) => SliverListScreen(),
+  'animatedDoUno': (_) => AnimatedDoUnoScreen(),
 };
