@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/* Screens */
+import 'package:animations_app/screens/screens.dart';
+
 class AnimatedDoUnoScreen extends StatelessWidget {
   const AnimatedDoUnoScreen({Key? key}) : super(key: key);
 
@@ -17,7 +20,14 @@ class AnimatedDoUnoScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: FaIcon(FontAwesomeIcons.twitter),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => AnimateDoDosScreen(),
+                ),
+              );
+            },
           ),
           SlideInLeft(
             from: 100,
