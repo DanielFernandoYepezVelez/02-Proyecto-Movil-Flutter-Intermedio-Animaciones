@@ -77,7 +77,14 @@ class AnimatedDoUnoScreen extends StatelessWidget {
       floatingActionButton: ElasticInRight(
         child: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.play),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => NavegacionScreen(),
+              ),
+            );
+          },
         ),
       ),
     );

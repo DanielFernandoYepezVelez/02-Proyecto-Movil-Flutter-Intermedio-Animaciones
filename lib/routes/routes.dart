@@ -15,4 +15,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'sliverList': (_) => SliverListScreen(),
   'animatedDoUno': (_) => AnimatedDoUnoScreen(),
   'animateDoDos': (_) => AnimateDoDosScreen(),
+  'navegacionMenu': (_) => NavegacionScreen(),
 };
