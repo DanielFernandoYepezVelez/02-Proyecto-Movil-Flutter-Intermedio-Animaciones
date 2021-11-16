@@ -1,3 +1,4 @@
+import 'package:animations_app/theme/temaProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ import 'package:animations_app/routes/routes.dart';
 import 'package:animations_app/providers/providers.dart';
 
 /* Tema De La App */
-import 'package:animations_app/theme/tema.dart';
+// import 'package:animations_app/theme/tema.dart';
 
 void main() => runApp(AppState());
 
@@ -24,6 +25,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SliderProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeChangeProvider(1)),
       ],
       child: MyApp(),
     );
@@ -34,12 +36,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final currentTheme = Provider.of<ThemeChangeProvider>(context).currentTheme;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Animaciones App',
       initialRoute: 'launcher',
       routes: appRoutes,
-      theme: tema,
+      theme: currentTheme,
     );
   }
 }

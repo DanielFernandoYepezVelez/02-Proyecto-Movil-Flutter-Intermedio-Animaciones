@@ -1,8 +1,10 @@
+import 'package:animations_app/theme/temaProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /* Routes Menú */
 import 'package:animations_app/routes/routes.dart';
+import 'package:provider/provider.dart';
 
 class LauncherScreen extends StatelessWidget {
   const LauncherScreen({Key? key}) : super(key: key);
@@ -26,14 +28,19 @@ class _ListaOpciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChangeProvider>(context).currentTheme;
+
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      separatorBuilder: (context, index) => Divider(color: Colors.white),
+      separatorBuilder: (context, index) =>
+          Divider(color: appTheme!.primaryColorLight),
       itemCount: pageRoutes.length,
       itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(pageRoutes[index].icon, color: Colors.blue),
+        leading: FaIcon(pageRoutes[index].icon,
+            color: appTheme!.colorScheme.secondary),
         title: Text(pageRoutes[index].titulo),
-        trailing: Icon(Icons.chevron_right, color: Colors.blue),
+        trailing:
+            Icon(Icons.chevron_right, color: appTheme.colorScheme.secondary),
         onTap: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (_) => pageRoutes[index].screen));
@@ -48,6 +55,8 @@ class _MenuPrincipal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChangeProvider>(context);
+
     return Drawer(
       child: Container(
         child: Column(
@@ -61,7 +70,10 @@ class _MenuPrincipal extends StatelessWidget {
                   backgroundColor: Colors.blue,
                   child: Text(
                     'DF',
-                    style: TextStyle(color: Colors.white, fontSize: 40),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                    ),
                   ),
                 ),
               ),
@@ -73,18 +85,25 @@ class _MenuPrincipal extends StatelessWidget {
               leading: Icon(Icons.lightbulb_outline, color: Colors.lightGreen),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
-                value: true,
+                value: appTheme.darkTheme,
                 activeColor: Colors.blue,
-                onChanged: (value) {},
+                onChanged: (value) => appTheme.darkTheme = value,
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.add_to_home_screen, color: Colors.lightGreen),
-              title: Text('Custome Theme'),
-              trailing: Switch.adaptive(
-                value: true,
-                activeColor: Colors.blue,
-                onChanged: (value) {},
+            SafeArea(
+              top: false,
+              left: false,
+              right: false,
+              bottom: true,
+              child: ListTile(
+                leading:
+                    Icon(Icons.add_to_home_screen, color: Colors.lightGreen),
+                title: Text('Custome Theme'),
+                trailing: Switch.adaptive(
+                  value: appTheme.customTheme,
+                  activeColor: Colors.blue,
+                  onChanged: (value) => appTheme.customTheme = value,
+                ),
               ),
             ),
           ],
