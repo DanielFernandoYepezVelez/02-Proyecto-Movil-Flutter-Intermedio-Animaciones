@@ -25,7 +25,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SliderProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeChangeProvider(1)),
+        ChangeNotifierProvider(create: (_) => ThemeChangeProvider(2)),
       ],
       child: MyApp(),
     );

@@ -56,6 +56,7 @@ class _MenuPrincipal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChangeProvider>(context);
+    final accentColor = appTheme.currentTheme!.colorScheme.secondary;
 
     return Drawer(
       child: Container(
@@ -67,7 +68,7 @@ class _MenuPrincipal extends StatelessWidget {
                 width: double.infinity,
                 // padding: EdgeInsets.all(20),
                 child: CircleAvatar(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: accentColor,
                   child: Text(
                     'DF',
                     style: TextStyle(
@@ -82,11 +83,14 @@ class _MenuPrincipal extends StatelessWidget {
               child: _ListaOpciones(),
             ),
             ListTile(
-              leading: Icon(Icons.lightbulb_outline, color: Colors.lightGreen),
+              leading: Icon(
+                Icons.lightbulb_outline,
+                color: accentColor,
+              ),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
                 value: appTheme.darkTheme,
-                activeColor: Colors.blue,
+                activeColor: accentColor,
                 onChanged: (value) => appTheme.darkTheme = value,
               ),
             ),
@@ -96,12 +100,14 @@ class _MenuPrincipal extends StatelessWidget {
               right: false,
               bottom: true,
               child: ListTile(
-                leading:
-                    Icon(Icons.add_to_home_screen, color: Colors.lightGreen),
+                leading: Icon(
+                  Icons.add_to_home_screen,
+                  color: accentColor,
+                ),
                 title: Text('Custome Theme'),
                 trailing: Switch.adaptive(
                   value: appTheme.customTheme,
-                  activeColor: Colors.blue,
+                  activeColor: accentColor,
                   onChanged: (value) => appTheme.customTheme = value,
                 ),
               ),

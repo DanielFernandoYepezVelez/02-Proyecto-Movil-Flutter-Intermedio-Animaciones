@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+/* Provider Personal */
+import 'package:animations_app/theme/temaProvider.dart';
 
 /* Widgets Personal */
 import 'package:animations_app/widgets/widgets.dart';
@@ -21,16 +25,17 @@ class SlideShowRefactorScreen extends StatelessWidget {
 }
 
 class _SlideShowUltimo extends StatelessWidget {
-  const _SlideShowUltimo({
-    Key? key,
-  }) : super(key: key);
+  const _SlideShowUltimo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChangeProvider>(context);
+    final accentColor = appTheme.currentTheme!.colorScheme.secondary;
+
     return SlideShow(
       // puntosArriba: true,
       colorPrimario: Colors.white,
-      colorSecundario: Color(0xffFF5A7E),
+      colorSecundario: (appTheme.darkTheme) ? accentColor : Color(0xffFF5A7E),
       bulletPrimario: 20,
       bulletSecundario: 12,
       slides: [
