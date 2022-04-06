@@ -172,7 +172,7 @@ class _Titulo extends StatelessWidget {
   }
 }
 
-class _ListaTareas extends StatelessWidget {
+/* class _ListaTareas extends StatelessWidget {
   final items = [
     _ListItem(titulo: 'Orange', color: Color(0xffF08F66)),
     _ListItem(titulo: 'Family', color: Color(0xffF2A38A)),
@@ -194,7 +194,7 @@ class _ListaTareas extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) => this.items[index],
     );
   }
-}
+} */
 
 class _ListItem extends StatelessWidget {
   final Color color;

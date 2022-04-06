@@ -80,7 +80,7 @@ class EmergencyScreen extends StatelessWidget {
   }
 }
 
-class _BotonPrincipalTemp extends StatelessWidget {
+/* class _BotonPrincipalTemp extends StatelessWidget {
   const _BotonPrincipalTemp({
     Key? key,
   }) : super(key: key);
@@ -97,7 +97,7 @@ class _BotonPrincipalTemp extends StatelessWidget {
       },
     );
   }
-}
+} */
 
 class _CompleteBackgroundHeader extends StatelessWidget {
   const _CompleteBackgroundHeader({Key? key}) : super(key: key);

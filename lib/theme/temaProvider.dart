@@ -40,7 +40,10 @@ class ThemeChangeProvider with ChangeNotifier {
     this._darkTheme = value;
 
     if (value) {
-      this._currentTheme = ThemeData.dark();
+      this._currentTheme = ThemeData.dark().copyWith(
+        primaryColorLight: Colors.white,
+        scaffoldBackgroundColor: Color(0xff162028),
+      );
     } else {
       this._currentTheme = ThemeData.light();
     }
