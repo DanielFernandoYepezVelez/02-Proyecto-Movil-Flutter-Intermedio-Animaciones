@@ -2,3 +2,4 @@
 
 * accentColor (colorScheme.secondary)
 * primaryColorLight
+* scaffoldBackgroundColor

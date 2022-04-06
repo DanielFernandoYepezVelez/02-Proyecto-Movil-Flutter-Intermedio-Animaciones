@@ -35,15 +35,27 @@ class _GraficasCircularesScreenState extends State<GraficasCircularesScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.green),
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.purple)
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                color: Colors.green,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje * 1.2,
+                color: Colors.purple,
+              )
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.pink),
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.yellow)
+              CustomRadialProgress(
+                porcentaje: porcentaje * 1.4,
+                color: Colors.pink,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje * 1.6,
+                color: Colors.yellow,
+              )
             ],
           )
         ],

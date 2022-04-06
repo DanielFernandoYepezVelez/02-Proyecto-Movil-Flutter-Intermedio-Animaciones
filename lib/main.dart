@@ -1,4 +1,3 @@
-import 'package:animations_app/theme/temaProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +9,7 @@ import 'package:animations_app/providers/providers.dart';
 
 /* Tema De La App */
 // import 'package:animations_app/theme/tema.dart';
+import 'package:animations_app/theme/temaProvider.dart';
 
 void main() => runApp(AppState());
 

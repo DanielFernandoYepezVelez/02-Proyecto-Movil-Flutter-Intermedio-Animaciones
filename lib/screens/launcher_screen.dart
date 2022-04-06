@@ -1,10 +1,14 @@
-import 'package:animations_app/theme/temaProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/* Provider */
+import 'package:provider/provider.dart';
+
 /* Routes Menú */
 import 'package:animations_app/routes/routes.dart';
-import 'package:provider/provider.dart';
+
+/* Theme */
+import 'package:animations_app/theme/temaProvider.dart';
 
 class LauncherScreen extends StatelessWidget {
   const LauncherScreen({Key? key}) : super(key: key);
@@ -31,19 +35,26 @@ class _ListaOpciones extends StatelessWidget {
     final appTheme = Provider.of<ThemeChangeProvider>(context).currentTheme;
 
     return ListView.separated(
-      physics: BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>
-          Divider(color: appTheme!.primaryColorLight),
       itemCount: pageRoutes.length,
+      physics: BouncingScrollPhysics(),
+      separatorBuilder: (context, index) => Divider(
+        color: appTheme!.primaryColorLight,
+      ),
       itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(pageRoutes[index].icon,
-            color: appTheme!.colorScheme.secondary),
+        leading: FaIcon(
+          pageRoutes[index].icon,
+          color: appTheme!.colorScheme.secondary,
+        ),
         title: Text(pageRoutes[index].titulo),
-        trailing:
-            Icon(Icons.chevron_right, color: appTheme.colorScheme.secondary),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: appTheme.colorScheme.secondary,
+        ),
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => pageRoutes[index].screen));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => pageRoutes[index].screen),
+          );
         },
       ),
     );
@@ -72,8 +83,8 @@ class _MenuPrincipal extends StatelessWidget {
                   child: Text(
                     'DF',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 40,
+                      color: Colors.white,
                     ),
                   ),
                 ),
